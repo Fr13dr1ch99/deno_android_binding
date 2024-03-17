@@ -38,7 +38,7 @@ jobs:
     # show build env
     - run: env
     # build `deno`
-    - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
+    - run: WORKDIR=$(pwd)/ cargo ndk --platform 26 --target aarch64-linux-android build --release
 
     # upload deno
     - uses: actions/upload-artifact@v3
