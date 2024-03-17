@@ -38,6 +38,8 @@ jobs:
     - run: env
     # build `deno`
     - uses: actions/checkout@v4
+    - run: git submodule update --init --recursive
+    - run: ls -ltr
     - run: pwd
     - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
 
