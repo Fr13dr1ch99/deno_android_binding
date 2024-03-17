@@ -19,3 +19,6 @@ v8 = "0.75.0"
 [lib]
 path = "src/main.rs"
 crate-type = ["dylib"]
+
+[build]
+rustflags = ["-C", "link-arg=-latomic"]
