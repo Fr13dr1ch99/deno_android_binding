@@ -2,7 +2,7 @@ name: build deno 1.36 android binding
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   # build deno 1.36 for `aarch64-linux-android`
@@ -16,6 +16,8 @@ jobs:
     # setup QEMU aarch64 for termux-docker
     - run: docker run --rm --privileged aptman/qus -s -- -p aarch64 arm
 
+    - uses: actions/checkout@v4
+    - run: git submodule update --init --recursive
     # download `librusty_v8.a` for `lib_v8`
     - uses: robinraju/release-downloader@v1
       with:
@@ -34,11 +36,10 @@ jobs:
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
 
+    - run: export RUSTY_V8_ARCHIVE=librusty_v8_release_aarch64-linux-android.a 
     # show build env
     - run: env
     # build `deno`
-    - uses: actions/checkout@v4
-    - run: git submodule update --init --recursive
     - run: ls -ltr
     - run: pwd
     - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
