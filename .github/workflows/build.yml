@@ -38,6 +38,7 @@ jobs:
     # show build env
     - run: env
     # build `deno`
+    - run: cd ../../
     - run: ls -ltr
     - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
 
