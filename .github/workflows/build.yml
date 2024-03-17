@@ -36,12 +36,13 @@ jobs:
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
 
+    - run: echo "RUSTY_V8_ARCHIVE=./librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
     # show build env
     - run: env
     # build `libary`
     - run: ls -ltr
     - run: pwd
-    - run: RUSTY_V8_ARCHIVE=librusty_v8_release_aarch64-linux-android.a && cargo ndk --platform 26 --target aarch64-linux-android build --release
+    - run: RUSTY_V8_ARCHIVE=./librusty_v8_release_aarch64-linux-android.a && cargo ndk --platform 26 --target aarch64-linux-android build --release
 
     # upload libary
     - uses: actions/upload-artifact@v3
