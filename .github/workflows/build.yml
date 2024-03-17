@@ -36,15 +36,14 @@ jobs:
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
 
-    - run: export RUSTY_V8_ARCHIVE=librusty_v8_release_aarch64-linux-android.a 
     # show build env
     - run: env
-    # build `deno`
+    # build `libary`
     - run: ls -ltr
     - run: pwd
-    - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
+    - run: RUSTY_V8_ARCHIVE=librusty_v8_release_aarch64-linux-android.a && cargo ndk --platform 26 --target aarch64-linux-android build --release
 
-    # upload deno
+    # upload libary
     - uses: actions/upload-artifact@v3
       with:
         name: deno-binding-1.36.2_aarch64-linux-android
