@@ -31,10 +31,12 @@ jobs:
         repository: "denoland/rusty_v8"
         tag: "v0.75.0"
         fileName: "librusty_v8_release_x86_64-unknown-linux-gnu.a"
-
+    
+    - run: echo "ANDROID_NDK=$ANDROID_NDK_HOME" >> $GITHUB_ENV
+    - run: $ANDROID_NDK/build/tools/make_standalone_toolchain.py --api 26 --arch arm64 --install-dir NDK/arm64
+    
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
-    - run: echo "ANDROID_NDK=$ANDROID_NDK_HOME" >> $GITHUB_ENV
     - run: echo "RUSTY_V8_ARCHIVE=/home/runner/work/deno_android_binding/deno_android_binding/librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
     # show build env
     - run: env
