@@ -32,22 +32,13 @@ jobs:
         fileName: "librusty_v8_release_x86_64-unknown-linux-gnu.a"
     - run: cp librusty_v8_release_x86_64-unknown-linux-gnu.a lib_v8/v0.75.0
 
-    # setup custom rust toolchain for cargo-cross-build
-    - uses: robinraju/release-downloader@v1
-      with:
-        repository: "fm-elpac/cargo-cross-build"
-        tag: "cargo-1.73.0"
-        fileName: "cargo-cross-build.tar.zst"
-    - run: tar -xvf cargo-cross-build.tar.zst
-
+    - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
-    - run: cp -r ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu ~/.rustup/toolchains/cross-build
-    - run: cp cargo ~/.rustup/toolchains/cross-build/bin
 
     # show build env
     - run: env
     # build `deno`
-    - run: WORKDIR=$(pwd)/ CARGO_DIR=~/.cargo make deno
+    - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
 
     # upload deno
     - uses: actions/upload-artifact@v3
