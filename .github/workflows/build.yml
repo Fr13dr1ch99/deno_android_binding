@@ -35,6 +35,9 @@ jobs:
 
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
+    - run: echo "AR=aarch64-linux-android-ar" >> $GITHUB_ENV
+    - run: echo "CC=aarch64-linux-android-gcc" >> $GITHUB_ENV
+    - run: echo "CXX=aarch64-linux-android-g++" >> $GITHUB_ENV    
     - run: echo "RUSTY_V8_ARCHIVE=/home/runner/work/deno_android_binding/deno_android_binding/librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
     # show build env
     - run: env
