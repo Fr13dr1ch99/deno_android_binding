@@ -15,9 +15,6 @@ jobs:
         platforms: arm64
     # setup QEMU aarch64 for termux-docker
     - run: docker run --rm --privileged aptman/qus -s -- -p aarch64 arm
-    - run: ls /usr/local/lib/android/sdk/ndk/25.2.9519653/prebuilt/
-    - run: ls /nowhere
-
     - uses: actions/checkout@v4
     - run: git submodule update --init --recursive
     # download `librusty_v8.a` for `lib_v8`
@@ -37,13 +34,12 @@ jobs:
 
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
-    - run: echo "LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib/" >> $GITHUB_ENV
+    - run: echo "ANDROID_NDK=$ANDROID_NDK_HOME" >> $GITHUB_ENV
     - run: echo "RUSTY_V8_ARCHIVE=/home/runner/work/deno_android_binding/deno_android_binding/librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
     # show build env
     - run: env
     # build `libary`
     - run: ls -ltr
-    - run: ls -ltr /data/data/com.termux/files/usr/lib/
     - run: pwd
     - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
 
