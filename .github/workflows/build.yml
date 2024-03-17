@@ -39,6 +39,7 @@ jobs:
     - run: env
     # build `deno`
     - run: ls -ltr ../../
+    - run: pwd
     - run: cargo ndk --platform 26 --target aarch64-linux-android build --release ../../
 
     # upload deno
