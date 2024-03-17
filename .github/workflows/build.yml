@@ -1,0 +1,56 @@
+name: build deno 1.36 android binding
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  # build deno 1.36 for `aarch64-linux-android`
+  build_android:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: docker/setup-qemu-action@v2
+      with:
+        platforms: arm64
+    # setup QEMU aarch64 for termux-docker
+    - run: docker run --rm --privileged aptman/qus -s -- -p aarch64 arm
+
+    # download `librusty_v8.a` for `lib_v8`
+    - uses: robinraju/release-downloader@v1
+      with:
+        repository: "fm-elpac/v8-src"
+        tag: "rusty_v8-0.75.0"
+        fileName: "v0.75.0-librusty_v8_release_aarch64-linux-android.a.zst"
+    - run: mkdir -p lib_v8/v0.75.0 && cp v0.75.0-librusty_v8_release_aarch64-linux-android.a.zst lib_v8/v0.75.0/librusty_v8_release_aarch64-linux-android.a.zst
+    - run: cd lib_v8/v0.75.0 && zstd -d librusty_v8_release_aarch64-linux-android.a.zst
+
+    - uses: robinraju/release-downloader@v1
+      with:
+        repository: "denoland/rusty_v8"
+        tag: "v0.75.0"
+        fileName: "librusty_v8_release_x86_64-unknown-linux-gnu.a"
+    - run: cp librusty_v8_release_x86_64-unknown-linux-gnu.a lib_v8/v0.75.0
+
+    # setup custom rust toolchain for cargo-cross-build
+    - uses: robinraju/release-downloader@v1
+      with:
+        repository: "fm-elpac/cargo-cross-build"
+        tag: "cargo-1.73.0"
+        fileName: "cargo-cross-build.tar.zst"
+    - run: tar -xvf cargo-cross-build.tar.zst
+
+    - run: rustup target add aarch64-linux-android
+    - run: cp -r ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu ~/.rustup/toolchains/cross-build
+    - run: cp cargo ~/.rustup/toolchains/cross-build/bin
+
+    # show build env
+    - run: env
+    # build `deno`
+    - run: WORKDIR=$(pwd)/ CARGO_DIR=~/.cargo make deno
+
+    # upload deno
+    - uses: actions/upload-artifact@v3
+      with:
+        name: deno-binding-1.36.2_aarch64-linux-android
+        path: workdir/target/aarch64-linux-android/release/deno.so

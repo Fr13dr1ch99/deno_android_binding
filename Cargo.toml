@@ -1,0 +1,24 @@
+[package]
+name = "deno_binding"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+deno_runtime = { path = "./deno/runtime/" }
+tokio = { version = "1.36.0", features = ["full"] }
+log = "0.4"
+simple-logging = "2.0.2"
+async-ffi = {version = "0.5.0", features = ["macros"]}
+jni = "0.21.1"
+futures = "0.3"
+url = { version = "2.3.1", features = ["serde", "expose_internals"] }
+v8 = "0.75.0"
+
+[lib]
+path = "src/main.rs"
+crate-type = ["dylib"]
+
+#[cfg(target_os = "android")]
+rustflags = ["-C", "link-arg=-latomic"]
