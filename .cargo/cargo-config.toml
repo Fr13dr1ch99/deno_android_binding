@@ -1,3 +1,0 @@
-[build]
-ar = "/home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/aarch64-linux-android-ar"
-linker = "/home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/aarch64-linux-android-clang"
