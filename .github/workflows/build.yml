@@ -46,7 +46,8 @@ jobs:
             echo "set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
             echo "set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
     - run: echo "CMAKE_TOOLCHAIN_FILE=/home/runner/work/deno_android_binding/deno_android_binding/test.toolchain" >> $GITHUB_ENV
-
+    - run: cp /home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/aarch64-linux-android-gcc /home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/cc
+    - run: cp /home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/llvm-ar /home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/aarch64-linux-android-ar
 
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
