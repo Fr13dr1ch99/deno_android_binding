@@ -39,6 +39,7 @@ jobs:
     - run: echo "CMAKE_C_COMPILER=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
     - run: echo "CMAKE_ASM_COMPILER=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
     - run: echo "CMAKE_TOOLCHAIN_FILE=/usr/local/lib/android/sdk/ndk/26.2.11394342/build/cmake/android-legacy.toolchain.cmake" >> $GITHUB_ENV
+    -  run: echo "ANDROID_TOOLCHAIN_NAME=aarch64-linux-android-21" >> $GITHUB_ENV
 
 
     - run: cargo install cargo-ndk
