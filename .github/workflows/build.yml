@@ -36,6 +36,7 @@ jobs:
     - run: $ANDROID_NDK/build/tools/make_standalone_toolchain.py --api 26 --arch arm64 --install-dir NDK/arm64
 
     - run: sudo apt-get install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    - run: echo "set(CMAKE_SYSTEM_PROCESSOR aarch64)" >> test.toolchain
     - run: echo "set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)" >> test.toolchain
     - run: echo "set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
     - run: echo "set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
