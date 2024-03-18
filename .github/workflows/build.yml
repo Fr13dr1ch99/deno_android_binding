@@ -45,8 +45,8 @@ jobs:
             echo "set(CMAKE_BUILD_TYPE Debug)" >> test.toolchain
             echo "set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
             echo "set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
+            echo "set(CFLAGS -march=armv8-a)" >> test.toolchain
     - run: echo "CMAKE_TOOLCHAIN_FILE=/home/runner/work/deno_android_binding/deno_android_binding/test.toolchain" >> $GITHUB_ENV
-    - run: echo "CFLAGS=-march=armv8-a" >> $GITHUB_ENV
 
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
