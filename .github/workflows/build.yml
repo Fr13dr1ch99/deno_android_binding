@@ -45,7 +45,7 @@ jobs:
 
     - run: echo "PATH=/home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/:$PATH" >> $GITHUB_ENV
 
-    - run: apt install protobuf-compiler gcc-aarch64-linux-gnu gcc make gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi
+    - run: sudo apt install protobuf-compiler gcc-aarch64-linux-gnu gcc make gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi
 
     # show build env
     - run: env
