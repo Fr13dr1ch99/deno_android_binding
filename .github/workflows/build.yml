@@ -37,20 +37,15 @@ jobs:
 
     - run: echo "CMAKE_CXX_COMPILER=aarch64-linux-gnu-g++" >> $GITHUB_ENV
     - run: echo "CMAKE_C_COMPILER=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
-    - run: echo "CMAKE_ASM_COMPILER=aarch64-linux-gnu-gcc" >> $GITHUB_ENV    
-    - run: echo "CMAKE_TOOLCHAIN_FILE=/usr/local/lib/android/sdk/ndk/26.2.11394342/build/cmake/android.toolchain.cmake" >> $GITHUB_ENV
-
-    - run: echo "ANDROID_ABI=arm64-v8a" >> $GITHUB_ENV
-    - run: echo "ANDROID_ARM_MODE=arm" >> $GITHUB_ENV
-    - run: echo "ANDROID_TOOLCHAIN=gcc" >> $GITHUB_ENV
-    - run: echo "ANDROID_ABI=arm64-v8a" >> $GITHUB_ENV
-    - run: echo "CMAKE_ASM_FLAGS=--target=aarch64-linux-android" >> $GITHUB_ENV
+    - run: echo "CMAKE_ASM_COMPILER=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
     
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
     - run: echo "RUSTY_V8_ARCHIVE=/home/runner/work/deno_android_binding/deno_android_binding/librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
 
     - run: echo "PATH=/home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/:$PATH" >> $GITHUB_ENV
+
+    - run: apt install protobuf-compiler gcc-aarch64-linux-gnu gcc make gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi
 
     # show build env
     - run: env
