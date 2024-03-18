@@ -47,7 +47,8 @@ jobs:
             echo "set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)" >> test.toolchain
             echo "set(CFLAGS -march=armv8-a)" >> test.toolchain
     - run: echo "CMAKE_TOOLCHAIN_FILE=/home/runner/work/deno_android_binding/deno_android_binding/test.toolchain" >> $GITHUB_ENV
-
+    - run: echo $CFLAGS
+    - run: echo "CFLAGS=" >> $GITHUB_ENV
     - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
     - run: echo "RUSTY_V8_ARCHIVE=/home/runner/work/deno_android_binding/deno_android_binding/librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
