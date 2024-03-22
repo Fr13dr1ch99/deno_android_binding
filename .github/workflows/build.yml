@@ -37,10 +37,8 @@ jobs:
 
     - run: sudo apt-get install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu protobuf-compiler
     - run: echo "CMAKE_TOOLCHAIN_FILE=/home/runner/work/deno_android_binding/deno_android_binding/android.toolchain" >> $GITHUB_ENV
-    - run: cargo install cargo-ndk
     - run: rustup target add aarch64-linux-android
     - run: echo "RUSTY_V8_ARCHIVE=/home/runner/work/deno_android_binding/deno_android_binding/librusty_v8_release_aarch64-linux-android.a" >> $GITHUB_ENV
-    - run: echo "CFLAGS=\"-target aarch64-linux-android -fPIC -ffunction-sections -fdata-sections -march=armv8-a\"" >> $GITHUB_ENV
 
     - run: echo "PATH=/home/runner/work/deno_android_binding/deno_android_binding/NDK/arm64/bin/:$PATH" >> $GITHUB_ENV
 
@@ -49,7 +47,7 @@ jobs:
     # build `libary`
     - run: ls -ltr
     - run: pwd
-    - run: cargo ndk --platform 26 --target aarch64-linux-android build --release
+    - run: cargo build --release --target aarch64-linux-android
 
     # upload libary
     - uses: actions/upload-artifact@v3
